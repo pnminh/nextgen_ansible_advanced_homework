@@ -1,0 +1,5 @@
+---
+# Install a role from Ansible Galaxy.
+- src: geerlingguy.postgresql
+  name: postgresql
+  version: 2.2.1

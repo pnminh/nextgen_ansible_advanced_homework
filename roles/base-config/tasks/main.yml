@@ -8,7 +8,13 @@
     replace: 'Defaults  !requiretty'
     backup: yes
 
+# no need to add new repoes
 #- name: enable repos
  
-#- name: install base tools and packages
-
+- name: install base tools and packages
+  yum:
+    name: "{{ item }}" 
+    state: latest
+  with_items:
+    - httpie
+    - python-pip

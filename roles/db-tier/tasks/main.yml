@@ -1,0 +1,4 @@
+---
+- name: install postgresql
+  include_role:
+    name: postgresql
