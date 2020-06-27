@@ -8,8 +8,11 @@
     replace: 'Defaults  !requiretty'
     backup: yes
 
-# no need to add new repoes
-#- name: enable repos
+- name: enable repos
+  template:
+    src: repos_template.j2
+    dest: /etc/yum.repos.d/open_three-tier-app.repo
+    mode: 064
  
 - name: install base tools and packages
   yum:
