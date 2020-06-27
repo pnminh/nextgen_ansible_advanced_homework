@@ -16,6 +16,10 @@
     when: 'item.hostname == "frontend"'
     loop: "{{ openstack_info.openstack_servers }}"
     register: webpage
+    # in case server is not ready
+    until: webpage.status == 200
+    retries: 20 # 20 * 6 seconds = 120s (2mins)
+    delay: 6
     ignore_errors: yes
   - name: show content
     debug: var=webpage.results[0].content
