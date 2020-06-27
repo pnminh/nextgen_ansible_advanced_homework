@@ -1,9 +1,22 @@
 - hosts: workstation
   gather_facts: false
   tasks:
+  # get openstack info for frontend server
   - name: OpenStack servers
+    os_server_info:
+      cloud: openstack
+      server: 'frontend'
+    register: openstack_info
+  # retrieve the host from openstack_info var and get content
   - name: Curl website
-
+    uri:
+      url: "http://{{ item.public_v4 }}"
+      status_code: 200
+      return_content: yes
+    when: 'item.hostname == "frontend"'
+    loop: "{{ openstack_info.openstack_servers }}"
+    register: webpage
+    ignore_errors: yes
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
     when: "'Ansible has done its job' not in webpage.results[0].content"
