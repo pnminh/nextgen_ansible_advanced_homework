@@ -11,9 +11,9 @@
     retries: 20 # 20 * 6 seconds = 120s (2mins)
     delay: 6
 
-  - debug: var=webpage.results[0].content
+  - debug: var=webpage.content
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
-    when: "'Ansible has done its job' not in webpage.results[0].content"
+    when: "'Ansible has done its job' not in webpage.content"
 
